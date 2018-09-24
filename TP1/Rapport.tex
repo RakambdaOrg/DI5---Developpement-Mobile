@@ -1,0 +1,55 @@
+\documentclass{report}
+\usepackage{MCC}
+
+\def\footauthor{Thomas COUCHOUD \& Victor COLEAU}
+\title{Développement mobile - TP1}
+\author{Thomas COUCHOUD\\\texttt{thomas.couchoud@etu.univ-tours.fr}\\Victor COLEAU\\\texttt{victor.coleau@etu.univ-tours.fr}}
+
+\rowcolors{1}{white}{white}
+\begin{document}
+	\mccTitle
+	
+	\section{Question 1}
+		Les éléments installés sont:
+		\begin{easylist}[itemize]
+			& Anndroid SDK Tools
+			& Anndroid SDK Platform-tools
+			& Android 28, P preview
+			& API 28
+			& API 21
+			&& SDK Platform
+			&& ARM EABI v7a System Image
+			& API 15
+			&& Google APIs
+			&& ARM EABI v7a System Image
+			& Extras
+			&& Google play services
+		\end{easylist}
+		
+	\section{Question 2}
+		Les éléments configurables de l'AVD sont:
+		\begin{easylist}[itemize]
+			& Nom
+			& Périphérique
+			& Target: version Android
+			& CPU
+			& Emulation du clavier ou pas
+			& Thème de l'interface
+			& Caméras ou non
+			& RAM & Heap
+			& Stockage interne
+			& Carte SD	
+		\end{easylist}
+		
+	\section{Question 3}
+		Testphone est un Nexus S (4", taille d'écran 480x480, avec un dpi élevé), la version de l'API est 15 sur un CPU ARM (v7a). Le clavier physique n'est pas émulé, aucun thème utilisé, pas de caméras, 343Mb de RAM, 32Mb de Heap, 200Mb de stockage interne et une carte SD de 200Mb.
+		
+	\section{Question 4}
+		ABD sert à obtenir les logs d'un périphérique.
+		
+		\cbo{abd devices} permet de lister les périphériques.
+		
+		\cbo{/home/polytech/.android/avd} contient les ficher de description des différents périphériques émulés.
+		
+		
+\end{document}
