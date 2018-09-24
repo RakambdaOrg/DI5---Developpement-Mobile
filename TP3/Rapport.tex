@@ -15,7 +15,8 @@
 		
 		Un service est une sorte de tâche de fond à laquelle différents intents peuvent se connecter pour récupérer des informations.
 		
-		Afin de mettre cela en place il faut définir une classe qui assurera les fonctionnalités du service voulu. Pour faire ceci, elle devra étendre la classe android Service.
+		Afin de mettre cela en place il faut définir une classe qui assurera les fonctionnalités du service voulu. 
+		Pour faire ceci, elle devra étendre la classe android Service.
 		Cette dernière implémente les fonctions de création/destruction, run et bind/unbind.
 		Lors du run nous créons nos données (l'heure) puis notifions les différents listeners (la vue).
 		Cette dernière s'enregistrera comme listener afin d'être notifiée lors de l'arrivée de nouvelles données et de les afficher.
