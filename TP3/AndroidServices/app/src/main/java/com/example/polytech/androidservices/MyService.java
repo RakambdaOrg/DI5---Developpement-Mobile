@@ -15,6 +15,8 @@ import java.util.TimerTask;
 
 /**
  * Created by polytech on 17/09/18.
+ *
+ * The service itself, generating data and notifying listeners.
  */
 public class MyService extends Service implements IBackgroundService {
     private Timer timer;

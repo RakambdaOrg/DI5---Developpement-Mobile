@@ -2,6 +2,8 @@ package com.example.polytech.androidservices;
 
 /**
  * Created by polytech on 17/09/18.
+ *
+ * Used to declare a service that can notify some listeners.
  */
 public interface IBackgroundService {
     /**

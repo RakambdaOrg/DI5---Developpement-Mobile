@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * Main view, displaying the datas and starting/stopping the service.
+ * Also it is a listener of this service in order to display the data it generated.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Button startButton;

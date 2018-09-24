@@ -4,6 +4,8 @@ import android.os.Binder;
 
 /**
  * Created by polytech on 17/09/18.
+ *
+ * Binds a service that can handle listeners.
  */
 public class BackgroundServiceBinder extends Binder{
     private IBackgroundService service = null;
