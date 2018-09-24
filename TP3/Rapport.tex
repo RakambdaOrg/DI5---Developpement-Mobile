@@ -13,12 +13,12 @@
 		Le but de ce TP est de mettre en place un service. 
 		L'interface graphique se connectera ensuite à ce dernier pour récupérer les données produites et les afficher dans la vue.
 		
-		Un service est une sorte de tâche de fond auquel différent intents peuvent s'y connecter pour récupérer des informations.
+		Un service est une sorte de tâche de fond à laquelle différents intents peuvent se connecter pour récupérer des informations.
 		
-		Afin de mettre cela en place il faut définir une classe qui sera le service et étends Service.
-		Ce dernier implémente les fonctions de création/destruction, run et bind/unbind.
-		Lors du run on créée nos données (l'heure) puis notifions les différents listeners (la vue).
-		Cette dernière s'enregistrera comme listener et lors de nouvelle données, les affichera.
+		Afin de mettre cela en place il faut définir une classe qui assurera les fonctionnalités du service voulu. Pour faire ceci, elle devra étendre la classe android Service.
+		Cette dernière implémente les fonctions de création/destruction, run et bind/unbind.
+		Lors du run nous créons nos données (l'heure) puis notifions les différents listeners (la vue).
+		Cette dernière s'enregistrera comme listener afin d'être notifiée lors de l'arrivée de nouvelles données et de les afficher.
 		
 		Des problèmes ont été rencontrés lors de la création du service.
 		En effet, il faut utiliser le contexte de l'activité principale et pas un autre.
@@ -31,7 +31,7 @@
 			Ensuite, nous avons déclaré un nouveau listener.
 			Un listener est un pattern design permettant de notifier d'autres classes que certains événements se sont produit dans la classe déclarante.
 			Dans notre cas, l'événement correspond à la mise à jour de l'heure lue.
-			Cependant, il est à noter qu'il est nécessaire de faire cette modification au sein du thread UI.
+			Cependant, il est à noter qu'il est nécessaire de faire cette modification au sein du thread UI (thread principal).
 			Etant donné que l'événement provient d'un processus différent, il est donc impératif de passer par la méthode runOnUiThread.
 	
 			Ensuite, nous déclarons le ServiceConnection qui gère le binding et le unbinding au service.
