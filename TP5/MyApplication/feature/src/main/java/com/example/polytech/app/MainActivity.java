@@ -19,7 +19,7 @@ import android.view.SurfaceView;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.example.polytech.myapplication.feature.R;
+import com.example.polytech.app.R;
 
 import java.util.List;
 import java.util.Random;
@@ -31,7 +31,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
     public native void process(int width, int height, byte input[], byte output[]);
 
     static {
-        System.loadLibrary("native_lib");
+        System.loadLibrary("native-lib");
     }
 
     private CameraBridgeViewBase mOpenCvCameraView;
@@ -204,11 +204,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         Mat gray =inputFrame.gray();
         MatToArray(gray);
 
-        byte[] outarray2 = sobel(outarray, new double[][]{
-                {0,-1,0},
-                {-1,0,1},
-                {0,1,0}
-        });
+        process(w, h, outarray, outarray2);
 
         return ArrayToMat(gray,w,h,outarray2);
     }
