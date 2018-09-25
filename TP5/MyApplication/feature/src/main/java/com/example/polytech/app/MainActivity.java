@@ -204,7 +204,8 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         Mat gray =inputFrame.gray();
         MatToArray(gray);
 
-        process(w, h, outarray, outarray2);
+        process(w, h, outarray, outarray2); //C++
+        //outarray2 = gradient(outarray); //Java
 
         return ArrayToMat(gray,w,h,outarray2);
     }
