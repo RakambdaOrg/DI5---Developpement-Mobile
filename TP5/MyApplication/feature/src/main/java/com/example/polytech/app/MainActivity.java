@@ -171,9 +171,20 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
             return array;
         }
 
+        int min = Integer.MAX_VALUE;
+        double max = Integer.MIN_VALUE
         for(int y = 1; y < h -1; y++){
             for(int x = 1; x < w -1; x++){
-                setPix(outarray2, x, y, applyConvFilterAt(outarray, convol, x, y));
+                int pix = applyConvFilterAt(outarray, convol, x, y);
+                min = Math.min(min, pix);
+                max = Math.max(max, pix);
+                setPix(outarray2, x, y, pix);
+            }
+        }
+    
+        for(int y = 1; y < h -1; y++){
+            for(int x = 1; x < w - 1; x++){
+                setPix(outarray2, x, y, getPix(outarray2, x, y) - min * (255 / max));
             }
         }
         return outarray2;
@@ -186,7 +197,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         double sumConv = 0;
         for(double[] i : convol)
             for(double j : i)
-                sumConv ++;
+                sumConv++;
 
         int sum = 0;
         for(int xc = 0; xc < convol.length; xc++){
