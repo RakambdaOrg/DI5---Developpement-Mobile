@@ -1,29 +1,19 @@
 package com.example.polytech.app;
 
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Core;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.WindowManager;
-import android.widget.Toast;
-
 import com.example.polytech.app.R;
-
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
+import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
 
 public class MainActivity extends Activity implements CvCameraViewListener2 {
     private static final String TAG = "OCVSample::Activity";
