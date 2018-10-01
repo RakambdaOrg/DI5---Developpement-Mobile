@@ -48,13 +48,22 @@
 			Avec cette opération supplémentaire, nous arrivons à 4.55fps.
 			
 		\section{Sobel JAVA}
+		
+		\section{JNI}
+			Le nom de la fonction dans le code CPP est: Java\_com\_example\_polytech\_app\_MainActivity\_process.
+			
+			La classe MainActivity possède cette méthode.
+			
+			Le mot clef native permet de dire à Java que l'implémentation de la fonction se trouve dans une librairie externe en C.
+			
+			Le System.loadLibrary() permet de charger cette librairie afin d'obtenir l'implémentation de notre fonction.
 			
 		\section{Résumé des FPS}
 			\begin{tabular}{|c|c|c|}
 				\hline
 				Méthode & JAVA & C++\\\hline
 				Aucun & 30 & \\\hline
-				Gradient & 4.55 & \\\hline
-				Sobel & & \\\hline
+				Gradient & 2.83 & 3.99\\\hline
+				Sobel & 0.9 & \\\hline
 			\end{tabular}
 \end{document}
