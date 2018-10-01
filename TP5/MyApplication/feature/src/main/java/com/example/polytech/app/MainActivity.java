@@ -15,10 +15,15 @@ import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends Activity implements CvCameraViewListener2 {
     private static final String TAG = "OCVSample::Activity";
 
-    public native void process(int width, int height, byte input[], byte output[]);
+    public native void gauss(int width, int height, byte input[], byte output[]);
+    public native void sobel(int width, int height, byte input[], byte output[], double[] convol, int cSize);
 
     static {
         System.loadLibrary("native-lib");
@@ -47,6 +52,13 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
 
     private byte[] outarray;
     private byte[] outarray2;
+    double filter[][] = new double[][]{{
+            -1,0,1
+    },{
+            -1,0,1
+    },{
+            -1,0,1
+    }};
 
     private int w;
 
@@ -122,12 +134,11 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
             Log.w(TAG, "Setting pixel out of range: " + x + "/" + y + "/");
             return;
         }
-        array[y * w + x] = (byte)(floorMod(pix, 255));
+        array[y * w + x] = (byte)(pix %255);
     }
 
     public static int floorMod(int x, int y) {
-        int r = x - floorDiv(x, y) * y;
-        return r;
+        return x - floorDiv(x, y) * y;
     }
 
     public static int floorDiv(int x, int y) {
@@ -139,7 +150,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         return r;
     }
 
-    public byte[] gradient(byte[] array){
+    public void gradient(byte[] array){
         for(int y = 1; y < h -1; y++){
             for(int x = 1; x < w -1; x++){
                 int gh = Math.abs(getPix(array, x-1, y) - getPix(array, x+1, y));
@@ -147,37 +158,24 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
                 setPix(outarray2, x, y,gh + gv);
             }
         }
-
-        for(int x : new int[]{0, w - 1})
-            for(int y : new int[]{0, h - 1})
-                setPix(outarray2, x, y,getPix(array, x, y));
-
-        return outarray2;
     }
 
-    public byte[] sobel(byte[] array, double[][] convol){
+    public void sobel(byte[] array, double[][] convol){
         if(convol.length == 0 || convol[0].length == 0 || convol.length > w || convol[0].length > h || convol.length%2 == 0 || convol[0].length%2 == 0){
             Log.w(TAG, "Convolution array not good !!!");
-            return array;
+            return;
         }
 
-        int min = Integer.MAX_VALUE;
-        double max = Integer.MIN_VALUE
+//        int min = Integer.MAX_VALUE;
+//        double max = Integer.MIN_VALUE;
         for(int y = 1; y < h -1; y++){
             for(int x = 1; x < w -1; x++){
                 int pix = applyConvFilterAt(outarray, convol, x, y);
-                min = Math.min(min, pix);
-                max = Math.max(max, pix);
+//                min = Math.min(min, pix);
+//                max = Math.max(max, pix);
                 setPix(outarray2, x, y, pix);
             }
         }
-    
-        for(int y = 1; y < h -1; y++){
-            for(int x = 1; x < w - 1; x++){
-                setPix(outarray2, x, y, getPix(outarray2, x, y) - min * (255 / max));
-            }
-        }
-        return outarray2;
     }
 
     private int applyConvFilterAt(byte[] outarray, double[][] convol, int x, int y) {
@@ -186,7 +184,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
 
         double sumConv = 0;
         for(double[] i : convol)
-            for(double j : i)
+            for(double ignored : i)
                 sumConv++;
 
         int sum = 0;
@@ -205,10 +203,24 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         Mat gray =inputFrame.gray();
         MatToArray(gray);
 
-        process(w, h, outarray, outarray2); //C++
-        //outarray2 = gradient(outarray); //Java
+        gauss(w, h, outarray, outarray2); //C++
+//        gradient(outarray); //Java
+
+//        sobel(outarray, filter); // Java
+//        sobel(w, h, outarray, outarray2, flattern(filter), filter.length); //C++
 
         return ArrayToMat(gray,w,h,outarray2);
+    }
+
+    public double[] flattern(double[][] array){
+        int i = 0;
+        double out[] = new double[array.length * array.length];
+        for(double[] tab : array)
+            for(double d : tab)
+            {
+                out[i++] = d;
+            }
+        return out;
     }
 
     private Mat ArrayToMat(Mat gray,int w, int h, byte[] grayarray) {
