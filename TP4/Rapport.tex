@@ -1,0 +1,69 @@
+\documentclass{report}
+\usepackage{MCC}
+
+\def\footauthor{Victor COLEAU \& Thomas COUCHOUD}
+\title{Développement mobile - TP4 \& TP5}
+\author{Victor COLEAU\\\texttt{victor.coleau@etu.univ-tours.fr}\\Thomas COUCHOUD\\\texttt{thomas.couchoud@etu.univ-tours.fr}}
+
+\rowcolors{1}{white}{white}
+\begin{document}
+	\mccTitle
+	\tableofcontents
+	\chapter{Questions}
+		\section{Installation de l'APK}
+			Nous pouvons grâce à \cbo{adb devices} obtenir la liste des périphériques connectés.
+			Puis l'APK est installée avec \cbo{adb install <path>}.
+			
+		\section{Premier lancement}
+			L'application permet d'obtenir la vidéo de la caméra a 30 fps.
+			
+			\subsection{Cycle de vie}
+				L'application passe par les états suivants:
+				\begin{easylist}
+					@ Création d'une instance de l'Activity
+					@ Appel de onCreate permettant d'initialiser nos différentes vues
+					@ Appel de onResume démarrant l'accès à la caméra
+				\end{easylist}
+				
+				Lors du passage de l'application en tâche de fond, onPause est appelé ce qui a pour effet d'arrêter les mises à jours depuis la caméra.
+				De manière similaire lors du passe au premier plan de l'application, onResume est rappelée et relance la caméra.
+				
+				Lors de la destruction de l'application, onDestroy est appelé et détruit nos différents objets.
+				
+				Lors de l'appel à onResume, on initialise openCV. Deux cas peuvent se présenter:
+				\begin{easylist}[itemize]
+					@ OpenCV est fourni dans le package de l'application (notre cas), et on a juste à appeler le callback pour démarrer la vue
+					@ OpenCV n'est pas dans le package de l'application, dans ce cas on demande à OpenCV de l'initialiser à partir d'OpenCV Manager (qui se chargera d'appeler le callback pour démarrer la vue).
+				\end{easylist}
+			
+			\subsection{Gestion camera}
+				onCameraViewStarted est appelée lorsque la connexion à la caméra a été effectuée.
+				Cela nous permet notamment de récupérer la taille de celle-ci pour initialiser nos différentes variables.
+				
+				onCameraFrame est appelée lorsque une nouvelle image de la caméra est prête à être affichée.
+				A ce moment nous pouvons donc la modifier si nécessaire.
+		\section{Gradient JAVA}
+			Avec l'opération du gradient, nous devrions observer les coutons de l'image.
+			
+			Avec cette opération supplémentaire, nous arrivons à 4.55fps.
+			
+		\section{Sobel JAVA}
+		
+		\section{JNI}
+			Le nom de la fonction dans le code CPP est: Java\_com\_example\_polytech\_app\_MainActivity\_process.
+			
+			La classe MainActivity possède cette méthode.
+			
+			Le mot clef native permet de dire à Java que l'implémentation de la fonction se trouve dans une librairie externe en C.
+			
+			Le System.loadLibrary() permet de charger cette librairie afin d'obtenir l'implémentation de notre fonction.
+			
+		\section{Résumé des FPS}
+			\begin{tabular}{|c|c|c|}
+				\hline
+				Méthode & JAVA & C++\\\hline
+				Aucun & 30 & \\\hline
+				Gradient & 2.83 & 3.99\\\hline
+				Sobel & 0.9 & \\\hline
+			\end{tabular}
+\end{document}
