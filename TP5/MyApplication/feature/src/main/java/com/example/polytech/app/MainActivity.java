@@ -184,8 +184,7 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
 
         double sumConv = 0;
         for(double[] i : convol)
-            for(double ignored : i)
-                sumConv++;
+            sumConv+=i.length;
 
         int sum = 0;
         for(int xc = 0; xc < convol.length; xc++){
@@ -203,8 +202,8 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
         Mat gray =inputFrame.gray();
         MatToArray(gray);
 
-        gauss(w, h, outarray, outarray2); //C++
 //        gradient(outarray); //Java
+        gauss(w, h, outarray, outarray2); //C++
 
 //        sobel(outarray, filter); // Java
 //        sobel(w, h, outarray, outarray2, flattern(filter), filter.length); //C++
