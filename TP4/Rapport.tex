@@ -45,9 +45,10 @@
 		\section{Gradient JAVA}
 			Avec l'opération du gradient, nous devrions observer les coutons de l'image.
 			
-			Avec cette opération supplémentaire, nous arrivons à 4.55fps.
+			Avec cette opération supplémentaire, nous arrivons aux alentours de 2-3fps.
 			
 		\section{Sobel JAVA}
+			Le filtre de sobel étant encore plus gourmand en ressources que le filtre gradient, nous arrivons avec un résultat d'environ 0.02fps avec un masque de convolution $3\times 3$.
 		
 		\section{JNI}
 			Le nom de la fonction dans le code CPP est: Java\_com\_example\_polytech\_app\_MainActivity\_process.
@@ -57,6 +58,12 @@
 			Le mot clef native permet de dire à Java que l'implémentation de la fonction se trouve dans une librairie externe en C.
 			
 			Le System.loadLibrary() permet de charger cette librairie afin d'obtenir l'implémentation de notre fonction.
+			
+		\section{Résultats C++}
+			De manière générale avec le même code transposé en C++, nus arrivons à observer que le traitement se fait plus rapidement.
+			
+			Dans le cas des tablettes Samsung la différence reste peu percevable.
+			En revanche les tablettes HP bénéficient d'un gros boost grâce à ce passage.
 			
 		\section{Résumé des FPS}
 			\begin{tabular}{|c|c|c|c|c|}
