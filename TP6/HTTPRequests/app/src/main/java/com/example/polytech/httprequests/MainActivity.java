@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Locale;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
@@ -68,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
                     tv.setText("Nope");
                     Toast.makeText(v.getContext(), "Merci de donner une IP VALIDE", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        findViewById(R.id.random).setOnClickListener(new View.OnClickListener(){
+            private final Random r = new Random();
+            @Override
+            public void onClick(View view) {
+                ip.setText(String.format(Locale.getDefault(), "%d.%d.%d.%d", r.nextInt(256), r.nextInt(256), r.nextInt(256), r.nextInt(256)));
+                findViewById(R.id.startRequest).callOnClick();
             }
         });
     }
