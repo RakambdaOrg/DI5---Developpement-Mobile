@@ -17,4 +17,47 @@
 			
 		\section{Question 4}
 			Le AsynTask permet aussi de réaliser ce que l'on veut tout en ayant un code propre.
+			
+		\section{Question 5}
+			\img{start.png}{Ecran d'acceuil}{0.2}
+			
+			Au démarrage de l'application nous pouvons voir les éléments suivant:
+			\begin{easylist}[itemize]
+				@ Un champ de texte afin de renseigner l'adresse IP à chercher (si vide l'adresse IP de la requête sera utilisée).
+				@ Un bouton << Random >> permettant d'afficher une adresse IP aléatoire.
+				@ Un bouton << Start >> permettant de lancer la requête.
+				@ Ainsi qu'un champ de texte, pour l'instant vide, où les résultats s'afficheront.	
+			\end{easylist}
+
+			Il est à noter que le champ de saisie est configuré en tant que nombre afin d'afficher un clavier adapté (chiffres et point)(inputType=phone).
+			De plus un filtre est présent afin de valider ou non le format de l'adresse entrée.
+			Si ce dernier est invalide la saisie n'est pas prise en compte.
+			Cela est réalisé grace à un InputFilter.
+			
+			Lors du clic sur le bouton start, un tache asynchrone est démarrée afin d'effectuer la requête.
+			
+			\begin{figure}[H]
+				\begin{minipage}{0.45\textwidth}
+					\img{search.png}{Requête valide}{0.2}
+				\end{minipage}
+				\begin{minipage}{0.45\textwidth}
+					\img{nodata.png}{Requête valide}{0.2}
+				\end{minipage}
+			\end{figure}
+			
+			Si les données reçues correspondent à une IP valide, on affiche ces dernières sur un fond vert.
+			
+			Si les données reçues correspondent à une IP indisponible, on affiche un message d'erreur sur fond rouge.
+	
+
+			\img{invalid.png}{Requête valide}{0.16}
+			Si l'adresse de requêtage est mal formatée (partie manquante), on affiche un message d'erreur sur fond deep pink ainsi qu'un Toast.
+			
+			\subsection{Requête}
+				Afin d'effectuer les requêtes vers l'api, nous avons créé une classe héritant de AsyncTask.
+				Pour pouvoir écrire nos résultats dans notre activity de base, le constructeur prend en paramètre une TextView.
+				
+				Lors d'un appel à cette tache, la méthode doInBackground est appelée avec en paramètre l'URL à requêtes.
+				Une fois la page récupérée, doInBackground retourne un String la représentant ce qui va permettre de la traiter dans onPostExecute.
+				Dans cette dernière on parse le JSON obtenu et construisons un objet GeoIp qui est ensuite écrit dans le TextView passé dans le constructeur.
 \end{document}
