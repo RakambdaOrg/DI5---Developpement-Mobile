@@ -70,7 +70,7 @@ public class AsyncRequest extends AsyncTask<String, String, String> {
         }
     }
 
-    private <T> T getMaybe(JSONObject obs, Class<? extends T> klass, String country) throws JSONException {
-        return obs.has(country) ? klass.cast(obs.get(country)) : null;
+    private <T> T getMaybe(JSONObject obs, Class<? extends T> klass, String key) throws JSONException {
+        return obs.has(key) ? klass.cast(obs.get(key)) : null;
     }
 }
