@@ -5,7 +5,6 @@
 \title{Développement mobile - TP4 \& TP5}
 \author{Victor COLEAU\\\texttt{victor.coleau@etu.univ-tours.fr}\\Thomas COUCHOUD\\\texttt{thomas.couchoud@etu.univ-tours.fr}}
 
-\rowcolors{1}{white}{white}
 \begin{document}
 	\mccTitle
 	\tableofcontents
@@ -43,14 +42,20 @@
 				onCameraFrame est appelée lorsque une nouvelle image de la caméra est prête à être affichée.
 				A ce moment nous pouvons donc la modifier si nécessaire.
 		\section{Gradient JAVA}
-			Avec l'opération du gradient, nous devrions observer les coutons de l'image.
+			Avec l'opération du gradient, nous devrions observer les contours des différents éléments de l'image.
 			
-			Avec cette opération supplémentaire, nous arrivons à 4.55fps.
+			Avec cette opération supplémentaire, nous arrivons aux alentours de 2-3fps.
 			
 		\section{Sobel JAVA}
+			Le filtre de sobel étant encore plus gourmand en ressources que le filtre gradient, nous arrivons avec un résultat d'environ 0.02fps avec un masque de convolution $3\times 3$:
+			$$\begin{bmatrix}
+				0 & -1 & 0\\
+				-1 & 0 & 1\\
+				0 & 1 & 0
+			\end{bmatrix}$$
 		
 		\section{JNI}
-			Le nom de la fonction dans le code CPP est: Java\_com\_example\_polytech\_app\_MainActivity\_process.
+			Le nom de la fonction dans le code CPP est: Java\_com\_example\_polytech\_app\_MainActivity\_gauss.
 			
 			La classe MainActivity possède cette méthode.
 			
@@ -59,11 +64,16 @@
 			Le System.loadLibrary() permet de charger cette librairie afin d'obtenir l'implémentation de notre fonction.
 			
 		\section{Résumé des FPS}
-			\begin{tabular}{|c|c|c|}
+			\begin{tabular}{|c|c|c|c|c|}
 				\hline
-				Méthode & JAVA & C++\\\hline
-				Aucun & 30 & \\\hline
-				Gradient & 2.83 & 3.99\\\hline
-				Sobel & 0.9 & \\\hline
+				Méthode & JAVA (Samsung) & Java (HP) & C++ (Samsung) & C++ (HP)\\\hline
+				Aucun & 30 & 28 & - & -\\\hline
+				Gradient & 2.83 & 0.02 & 3.99 & 2.8\\\hline
+				Sobel & 0.9 & 0.01 & 1.7 & 1.9\\\hline
 			\end{tabular}
+			
+			De manière générale avec le même code transposé en C++, nus arrivons à observer que le traitement se fait plus rapidement.
+			
+			Dans le cas des tablettes Samsung la différence reste peu percevable.
+			En revanche les tablettes HP bénéficient d'un gros boost grâce à ce passage.
 \end{document}
